@@ -1,13 +1,15 @@
 var express = require('express');
 var router = express.Router();
+const productsController = require("../controllers/productsController")
 
 
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource. Get required');
-});
-router.post('/', function(req, res, next) {
-  res.send('respond with a resource. Post required');
-});
-
+router.get('/', productsController.getAll);
+router.get("/categories", productsController.getCategories);
+router.get("/:id", productsController.getById);
+router.post("/",productsController.create);
+router.put("/:id",productsController.update)
+router.delete("/:id", productsController.delete)
+ 
+ 
 module.exports = router;
   
