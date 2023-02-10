@@ -1,20 +1,13 @@
 const productsModel = require("../models/productsModel")
 module.exports={
-    getAll: function(req, res, next){
-        console.log(req.query)
-        const productos = [
-            {
-                id: 1,
-                name:"Moto G",
-                price:100
-            },
-            {
-                id:2,
-                name:"moto x",
-                price:200
-            }
-        ]
-        res.status(200).json(productos)
+    getAll: async function(req, res, next){
+        try{
+            const products = await productsModel.find()
+            res.status(200).json(products)
+        }catch(e){
+            console.log(e)
+        }
+        
     },
 
     getCategories:function(req,res,next){
@@ -31,11 +24,25 @@ module.exports={
         }
         res.status(200).json(producto)
     },
-    create: function(req, res, next){
-        console.log(req.body)
-        res.status(201).json(req.body)
+    create: async function(req, res, next){
+        try{
+            const producto = new productsModel({
+                name:req.body.name,
+                price:req.body.price,
+                description:req.body.description,
+                quantity:req.body.quantity,
+            })
+            const document = await producto.save()
+            console.log(req.body)
+            res.status(201).json(document)
+        }catch(e){
+            console.log(e)
+        }
+
+        
     },
     update: function(req, res, next){
+       
         console.log(req.body)
         res.status(201).json(req.body)
     },

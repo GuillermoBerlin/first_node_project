@@ -1,9 +1,9 @@
 const mongoose = require("mongoose")
-mongoose.connect("mongodb://localhost/dn20223", function(error){
+mongoose.connect("mongodb://localhost/27017", function(error){
     if(error){
         throw error
     }else{
-        console.log("conectado a mongo")
+        console.log("Conectado a MongoDB")
     }
 })
 module.exports = mongoose
