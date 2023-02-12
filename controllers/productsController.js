@@ -1,5 +1,6 @@
 const productsModel = require("../models/productsModel")
 module.exports={
+
     getAll: async function(req, res, next){
         try{
             const products = await productsModel.find()
@@ -13,17 +14,18 @@ module.exports={
     getCategories:function(req,res,next){
         res.send("responf with a resource products");
     },
-    getById: function(req, res, next){
-        console.log(req.params.id)
-        const producto =
-        {
-            id:1,
-            name:"moto g",
-            price:100
 
+    getById: async function(req, res, next){
+        console.log(req.params.id)
+        try{
+            const product = await productsModel.findById(req.params.id)
+            res.status(200).json(product)
+        }catch(e){
+            console.log(e)
         }
-        res.status(200).json(producto)
+        
     },
+
     create: async function(req, res, next){
         try{
             const producto = new productsModel({
@@ -37,22 +39,24 @@ module.exports={
             res.status(201).json(document)
         }catch(e){
             console.log(e)
-        }
+        } 
+    },
 
-        
+    update: async function(req, res, next){
+        try{
+            const document = await productsModel.updateOne({_id:req.params.id},req.body)
+            res.status(200).json(document)
+        }catch(e){
+            console.log(e)
+        }   
     },
-    update: function(req, res, next){
-       
-        console.log(req.body)
-        res.status(201).json(req.body)
-    },
-    delete: function(req,res,next){
-        console.log(req.params.id)
-        const producto =
-        {
-            id: 1,
-            name: "moto g",
-            price:100
-        }
+
+    delete: async function(req,res,next){
+        try{
+            const document = await productsModel.deleteOne({_id:req.params.id})
+            res.status(200).json(document)
+        }catch(e){
+            console.log(e)
+        } 
     }
 } 
