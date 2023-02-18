@@ -1,7 +1,10 @@
 const mongoose = require("../config/mongodb")
 
 const productSchema = mongoose.Schema({
-    name:String,
+    name:{
+        type:String,
+        lowercase:true
+         },
     price:Number,
     description:String,
     quantity:Number
