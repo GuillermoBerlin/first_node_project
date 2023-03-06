@@ -3,7 +3,7 @@ module.exports={
 
     getAll: async function(req, res, next){
         try{
-            const products = await productsModel.find()
+            const products = await productsModel.find().populate("category")
             res.status(200).json(products)
         }catch(e){
             console.log(e)
@@ -33,6 +33,7 @@ module.exports={
                 price:req.body.price,
                 description:req.body.description,
                 quantity:req.body.quantity,
+                category:req.body.category
             })
             const document = await producto.save()
             console.log(req.body)
