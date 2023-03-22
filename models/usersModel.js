@@ -1,6 +1,7 @@
 const mongoose = require("../config/mongodb")
+const bcrypt = require("bcrypt")
 
-const productSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
     name:{
         type:String,
         lowercase:true,
@@ -13,4 +14,9 @@ const productSchema = mongoose.Schema({
     password:String,
     
 })
-module.exports = mongoose.model("users", productSchema)
+
+userSchema.pre("save",function(next){
+    this.password = bcrypt.hashSync(this.password,10)
+    next()
+})
+module.exports = mongoose.model("users", userSchema)

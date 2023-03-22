@@ -1,5 +1,6 @@
 const mongoose = require("../config/mongodb")
 
+
 const productSchema = mongoose.Schema({
     name:{
         type:String,
