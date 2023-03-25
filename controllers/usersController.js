@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 module.exports={
-
+    
     create: async function(req, res, next){
         try{
             const user = new usersModel({
@@ -16,7 +16,7 @@ module.exports={
         }catch(e){
             console.log(e)
         } 
-    },
+    }, 
 
     login: async function(req, res, next){
         try{
