@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const jwt = require("jsonwebtoken")
+const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -11,6 +12,9 @@ const productsRouter = require("./routes/products")
 const categoriesRouter = require("./routes/categories")
 
 var app = express();
+
+// CORS setup
+app.use(cors("*"));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +36,9 @@ app.use("/categories", categoriesRouter)
 app.use(function(req, res, next) {
   next(createError(404));
 });
-  
+
+// token config
+
 function verifyToken(req,res,next){
   jwt.verify(req.headers["x-access-token"], "node2022", function(err, decoded){
     if(err){

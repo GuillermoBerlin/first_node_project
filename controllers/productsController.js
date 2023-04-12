@@ -11,9 +11,6 @@ module.exports={
         
     },
 
-    getCategories:function(req,res,next){
-        res.send("responf with a resource products");
-    },
 
     getById: async function(req, res, next){
         console.log(req.params.id)
@@ -29,11 +26,15 @@ module.exports={
     create: async function(req, res, next){
         try{
             const producto = new productsModel({
+                isNew:req.body.isNew,
                 name:req.body.name,
                 price:req.body.price,
                 description:req.body.description,
-                quantity:req.body.quantity,
-                category:req.body.category
+                descriptionLong:req.body.descriptionLong,
+                category:req.body.category,
+                thumbnail:req.body.thumbnail,
+                thumbnail2:req.body.thumbnail2,
+                
             })
             const document = await producto.save()
             console.log(req.body)
@@ -59,5 +60,17 @@ module.exports={
         }catch(e){
             console.log(e)
         } 
+    },
+
+    getByCategory: async function(req, res, next) {
+        try {
+            const categoryId = req.params.categoryId; 
+            const products = await productsModel.find({ category: categoryId }).populate("category");
+            
+            res.status(200).json(products);
+        } catch (e) {
+            console.log(e);
+            res.status(500).json({ error: "Error al obtener productos por categoría" });
+        }
     }
 } 
