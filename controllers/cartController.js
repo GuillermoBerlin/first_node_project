@@ -15,8 +15,8 @@ module.exports = {
 
     addProduct: async function(req, res, next) {
         try {
-            const userId = req.body.userId; // Cambiado de req.params.userId a req.body.userId
-            const productId = req.body.productId; // Cambiado de req.params.productId a req.body.productId
+            const userId = req.body.userId; 
+            const productId = req.body.productId; 
 
             // Verificar si el usuario ya tiene un carrito
             const existingCart = await cartModel.findOne({ user: userId });
@@ -43,8 +43,8 @@ module.exports = {
 
     removeProduct: async function(req, res, next) {
         try {
-            const userId = req.body.userId; // Cambiado de req.params.userId a req.body.userId
-            const productId = req.body.productId; // Cambiado de req.params.productId a req.body.productId
+            const userId = req.body.userId; 
+            const productId = req.body.productId; 
             const cart = await cartModel.findOneAndUpdate(
                 { user: userId },
                 { $pull: { products: productId } },

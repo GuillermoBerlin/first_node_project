@@ -25,21 +25,28 @@ module.exports={
         }
       },
 
-    login: async function(req, res, next){
+      login: async function(req, res, next){
         try{
             const user = await usersModel.findOne({email:req.body.email})
             if(!user){
-                res.json({message:"Email incorrect"})
+                res.json({message:"Email incorrecto"})
                 return
             }
             if(bcrypt.compareSync(req.body.password, user.password)){   
-                const token = jwt.sign({userId:user._id},"node2022", {expiresIn:"1h"})         
-                res.status(201).json({message:"Successfully logged", token: token})
+                const token = jwt.sign({userId:user._id},"node2022", {expiresIn:"1h"})
+                const response = {
+                    message:"Inicio de sesión exitoso",
+                    token: token,
+                    userId: user._id,
+                    name: user.name
+                };
+                res.status(201).json(response);
             }else{
-                res.json({message:"Password incorrect"})
+                res.json({message:"Contraseña incorrecta"})
             }
         }catch(e){
             console.log(e)
         } 
-    },
+    }
+    
 }
