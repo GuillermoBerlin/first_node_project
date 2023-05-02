@@ -52,6 +52,7 @@ function verifyToken(req,res,next){
   })
 }
 app.verifyToken = verifyToken
+
  
 // error handler
 app.use(function(err, req, res, next) {
