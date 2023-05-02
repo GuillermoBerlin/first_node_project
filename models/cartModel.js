@@ -6,8 +6,14 @@ const cartSchema = mongoose.Schema({
         ref: "users" // Referencia al modelo de usuarios
     },
     products: [{
-        type: mongoose.Schema.ObjectId,
-        ref: "products" // Referencia al modelo de productos
+        product: {
+            type: mongoose.Schema.ObjectId,
+            ref: "products" // Referencia al modelo de productos
+        },
+        quantity: {
+            type: Number,
+            default: 1
+        }
     }]
 });
 
